@@ -1,0 +1,130 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "stdlib.h"
+
+//Una constante a nivel compilador
+#define MAX 100
+
+//Prototipo para cada opcion del menu
+
+void cargar  (int vec[], int n);		//Ingresar datos vector
+void mostrar (int vec[], int n);
+void ordenar (int vec[], int n);
+
+float promedio (int vec[], int n);	//devuelve resultado
+int buscar(int vec[], int n, int elemento);
+
+using namespace std;
+
+void main()
+{
+	int a[MAX];
+	float prom;
+	int opcion;
+	int n; 
+	int elemento;
+	//Pedir numero de elementos y que no sea mayor a MAX
+	do {
+		cout << "Ingrese numero de elementos: "<< endl;
+		cin >> n;
+		if ((n<0) || (n>MAX))
+			cout << "Respuesta invalida sobre el limite" <<endl;
+	}
+	while((n<0) || (n>MAX));
+
+	// Menu
+	do {
+		//Desplegar las opciones
+		cout<<"\t\t Menu \n";
+		cout<<"\t\t ==== \n";
+		cout<<"1. Cargar\n";
+		cout<<"2. Mostrar\n";
+		cout<<"3. Ordenar\n";
+		cout<<"4. Buscar\n";
+		cout<<"5. Promedio\n";
+		cout<<"0. Salir\n";
+		cout<<"Opcion: ";
+		cin>>opcion;
+		// Condicional multiple
+		switch (opcion)
+		{
+		case 1: cargar(a,n);
+				break;
+		case 2: mostrar(a,n);
+				break;
+		case 3: ordenar(a,n);
+				break;
+		case 4: cout<<"Ingresar el elemento buscado: "<< endl;
+				cin>>elemento;
+				if (buscar(a,n,elemento)==-9)
+					cout <<"El elemento no esta presente"<< endl;
+				else 
+					cout <<elemento<<endl;
+				break;
+		case 5: promedio(a,n);
+
+		case 0: cout<<"Saliendo del Menu";
+			    break;
+		default: cout <<"ERROR de opcion";
+			    break;
+		}
+		getch();
+		system("cls");
+	}while (opcion!=0);
+	getch();
+
+}
+
+
+void cargar  (int vec[], int n){
+	for(int i=0;i<n;i++){
+		cout <<"vec["<<i<<"]= ";
+		cin >> vec[i];
+	}
+}
+
+
+
+void mostrar (int vec[], int n){
+	for (int i=0;i<n;i++){
+		cout <<vec[i] <<" "<<endl;
+	}
+}
+
+
+void ordenar (int vec[], int n){
+	int aux;
+	for (int i=0;i<n-1;i++){
+		for (int j=i+1;j<n;j++){
+			if (vec[i]>vec[j]){
+				aux=vec[i];
+				vec[j]=vec[i];
+				vec[j]=aux;
+		}
+	}
+  }
+}
+
+
+
+int buscar(int vec[], int n, int elemento){
+	int aux = -9;
+	for (int i=0;i<n;i++){
+		if (elemento == vec[i])
+			aux=i;
+			return aux;
+	return aux;
+	}
+}
+		
+
+
+float promedio (int vec[], int n){
+	float x=0;
+	for (int i=0;i<n;i++){
+		x = x+vec[i];
+	}
+	x=x/n;
+	return x;
+}
